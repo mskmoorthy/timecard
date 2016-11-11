@@ -2,18 +2,18 @@ body {
   background: white;
   color: black;
   font-family: inherit;
+  vertical-align: baseline;
   margin: 0;
   padding: 0;
   border: 0;
-  vertical-align: baseline;
 }
 #header {
   color: white;
   font-family: 'Open Sans Condensed', sans-serif;
-  width: 90%;
-  height: 60px;
-  max-width: 1200px;
   display: flex;
+  width: 90%;
+  max-width: 1200px;
+  height: 60px;
   align-items: center;
   margin: 0 auto 10px;
 }
