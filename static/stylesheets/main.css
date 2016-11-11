@@ -1,0 +1,44 @@
+body {
+  background: white;
+  color: black;
+  font-family: inherit;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+#header {
+  color: white;
+  font-family: 'Open Sans Condensed', sans-serif;
+  width: 90%;
+  height: 60px;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto 10px;
+}
+#content {
+  background: #EAEAEA;
+  color: black;
+  font-family: 'Open Sans Condensed', sans-serif;
+  display: flex;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 3px;
+}
+#logo {
+  height: 40px;
+}
+#login {
+  margin-left: auto;
+}
+#footer {
+    background-color: #EAEAEA;
+    color: black;
+    font-family: 'Open Sans Condensed', sans-serif;
+    text-align: center;
+    position: relative;
+    margin: 10px 0 0 0;
+    padding: 5px 0;
+}
