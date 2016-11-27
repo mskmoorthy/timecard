@@ -1,9 +1,12 @@
 {{define "content"}}
 <div class="container">
-  {{range $day := .Days}}
-    <div class="timecard-day" id="day{{$day}}">
-      <h1>Test</h1>
-    </div>
-  {{end}}
+  <table style="width:100%">
+    <tr>
+      {{range $day := .Days}}
+        <td class="tc-day">
+        </td>
+      {{end}}
+    </tr>
+  </table>
 </div>
 {{end}}
