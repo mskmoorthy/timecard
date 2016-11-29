@@ -1,3 +1,5 @@
+{{define "layout"}}
+
 <!DOCTYPE html>
 <html>
 
@@ -29,12 +31,14 @@
 			<p id="login">Logout Username</p>
 		</div>
 	</header>
-	<div id="content">
-		<h1>Body</h1>
-	</div>
+
+  {{template "content" .}}
+
 	<div id="footer">
 		<span>A VCC Helpdesk Project | <a href="https://github.com/VCC-Helpdesk/timecard" target="_blank" title="Source">Source</a></span>
 	</div>
 </body>
 
 </html>
+
+{{end}}
