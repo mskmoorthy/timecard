@@ -34,14 +34,18 @@ body {
   margin-left: auto;
 }
 #footer {
-    background-color: #EAEAEA;
-    color: black;
-    font-family: 'Open Sans Condensed', sans-serif;
-    text-align: center;
-    position: relative;
-    margin: 10px 0 0 0;
-    padding: 5px 0;
+  background-color: #EAEAEA;
+  color: black;
+  font-family: 'Open Sans Condensed', sans-serif;
+  text-align: center;
+  position: relative;
+  margin: 10px 0 0 0;
+  padding: 5px 0;
 }
 .timecard-day {
+  background-color: lightgray;
+  color: black;
+  font-family: 'Open Sans Condensed', sans-serif;
   display: inline-block;
+  margin: 2px;
 }

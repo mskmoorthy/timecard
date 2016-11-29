@@ -3,7 +3,8 @@
   <table style="width:100%">
     <tr>
       {{range $day := .Days}}
-        <td class="tc-day">
+        <td class="timecard-day">
+          {{.}}
         </td>
       {{end}}
     </tr>
