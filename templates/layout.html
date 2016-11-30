@@ -1,0 +1,45 @@
+{{define "layout"}}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <title>timecard</title>
+    <link rel="stylesheet" href="../static/stylesheets/main.css">
+    <link rel="icon" type="image/ico" href="http://www.rpi.edu/favicon.ico">
+    <!-- Leet navbar -->
+    <link rel="stylesheet" href="../static/stylesheets/custom.css">
+    <nav id="bar">
+        <ul>
+            <li><a class="nav-link red" href="/quicklogs" target="_blank">Quicklogs</a></li>
+            <li><a class="nav-link red" href="/forum" target="_blank">Forum</a></li>
+            <li><a class="nav-link red" href="http://leet.arc.rpi.edu:8000" target="_blank">Print Queue</a></li>
+            <li><a class="nav-link red" href="/printers" target="_blank">Printer Picker</a></li>
+            <li><a class="nav-link red" href="http://afsws.rpi.edu/AFS/dept/acs/consult/Schedule.html" target="_blank">Schedule</a></li>
+            <li><a class="nav-link red" href="https://apex.cct.rpi.edu/apex/f?p=187:SEARCH:34401092285::NO:::" target="_blank">Pickup</a></li>
+            <li><a class="nav-link red" href="http://hd-time.arc.rpi.edu/timecard.php?group=Helpdesk" target="_blank">Time Card</a></li>
+        </ul>
+    </nav>
+    <!-- End Leet navbar -->
+</head>
+
+<body>
+    <header style="background: #1B5689; margin: 0;">
+        <div id="header">
+            <img src="static/logo.svg" id="logo">
+            <div id="login"><b>Logout Username</b></div>
+        </div>
+    </header>
+    
+    {{template "content" .}}
+
+    <div id="footer">
+        <div>A VCC Helpdesk Project | <a href="https://github.com/VCC-Helpdesk/timecard" target="_blank" title="Source">Source</a></div>
+    </div>
+</body>
+
+</html>
+
+{{end}}
