@@ -1,13 +1,56 @@
 {{define "content"}}
-<div class="container">
-  <table style="width:100%">
-    <tr>
-      {{range $day := .Days}}
-        <td class="timecard-day">
-          {{.}}
-        </td>
-      {{end}}
-    </tr>
-  </table>
+<div style="width: 100%; margin: 0;">
+    <div style="background: white; width: 100%; margin: 0; padding: 0;">
+        <div id="templates-header">
+            Template:
+            <select id="templates-select">
+                <option selected> None </option>
+                <option>Template 1</option>
+                <option>Template 2</option>
+            </select>
+            <div style="margin-left: auto;">
+                More Template or User Group Stuff
+            </div>
+        </div>
+        <div style="background: #EAEAEA; height: 2px; margin: 0;"></div>
+        <div id="timecard-header">
+            <div id="timecard-nav-prev">
+                <b>&#9668; Previous Week</b>
+            </div>
+            <div style="margin: 0 auto;">
+                <b>Total Hours: 0</b>
+            </div>
+            <div id="timecard-nav-next">
+                <b>Next Week &#9658;</b>
+            </div>
+        </div>
+    </div>
+    <table class="timecard-table">
+        <hr style=" height: 5px; border: 0; box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5); margin: 0; margin-bottom: 5px;" />
+        <tr>
+            {{range $day := .Days}}
+            <td class="timecard-day">
+                <div style="background-color: white; padding: 5px;">
+                    <b>11/29/16</b>
+                    <br>
+                    <b>Tuesday</b>
+                    <br>
+                    Hours: 0
+                </div>
+                <div style="padding: 5px;">
+                    <table style="width: 100%; margin: 0;">
+                        {{range $day := $.Days}}
+                        <tr>
+                            <td class="timecard-cell">
+                                {{.}}:00pm
+                            </td>
+                        </tr>
+                        {{end}}
+                    </table>
+                </div>
+            </td>
+            {{end}}
+        </tr>
+    </table>
 </div>
 {{end}}

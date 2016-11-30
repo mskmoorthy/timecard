@@ -1,51 +1,128 @@
 body {
-  background: white;
-  color: black;
-  font-family: inherit;
-  vertical-align: baseline;
-  margin: 0;
-  padding: 0;
-  border: 0;
+    background: white;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    vertical-align: baseline;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
+
 #header {
-  color: white;
-  font-family: 'Open Sans Condensed', sans-serif;
-  display: flex;
-  width: 90%;
-  max-width: 1200px;
-  height: 60px;
-  align-items: center;
-  margin: 0 auto 10px;
+    color: white;
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 60px;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0;
 }
-#content {
-  background: #EAEAEA;
-  color: black;
-  font-family: 'Open Sans Condensed', sans-serif;
-  display: flex;
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 3px;
-}
+
 #logo {
-  height: 40px;
+    height: 30px;
 }
+
 #login {
-  margin-left: auto;
+    margin-left: auto;
+    cursor: pointer;
 }
+
+#login:hover {
+    text-decoration: underline;
+}
+
 #footer {
-  background-color: #EAEAEA;
-  color: black;
-  font-family: 'Open Sans Condensed', sans-serif;
-  text-align: center;
-  position: relative;
-  margin: 10px 0 0 0;
-  padding: 5px 0;
+    background-color: #EAEAEA;
+    text-align: center;
+    position: relative;
+    margin: 10px 0 0 0;
+    padding: 5px 0;
 }
+
+#timecard-header {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 30px;
+    align-items: center;
+    margin: 0 auto;
+    padding: 5px 0;
+}
+
+#timecard-nav-prev {
+    cursor: pointer;
+}
+
+#timecard-nav-prev:hover {
+    text-decoration: underline;
+}
+
+#timecard-nav-next {
+    cursor: pointer;
+}
+
+#timecard-nav-next:hover {
+    text-decoration: underline;
+}
+
+#templates-header {
+    display: flex;
+    width: 90%;
+    max-width: 1200px;
+    height: 30px;
+    align-items: center;
+    margin: 0 auto;
+    padding: 5px 0;
+}
+
+#templates-select {
+    min-width: 140px;
+    height: 20px;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.timecard-table {
+    width: 90%;
+    max-width: 1200px;
+    text-align: center;
+    margin: 0 auto;
+    padding: 0;
+}
+
 .timecard-day {
-  background-color: lightgray;
-  color: black;
-  font-family: 'Open Sans Condensed', sans-serif;
-  display: inline-block;
-  margin: 2px;
+    background: #EAEAEA;
+    display: inline-block;
+    width: 20%;
+    min-width: 90px;
+    max-width: 140px;
+    outline: black solid 2px;
+    text-align: center;
+    margin: 5px 10px;
+    padding: 0;
+}
+
+.timecard-cell {
+    background: #EAEAEA;
+    outline: black solid 2px;
+    width: 100%;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    cursor: cell;
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer */
+    -khtml-user-select: none;
+    /* KHTML browsers (e.g. Konqueror) */
+    -webkit-user-select: none;
+    /* Chrome, Safari, and Opera */
+    -webkit-touch-callout: none;
+    /* Disable Android and iOS callouts*/
+}
+
+.timecard-cell:hover {
+    background: white;
 }
