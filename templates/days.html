@@ -1,6 +1,6 @@
 {{define "content"}}
-<div style="width: 100%; margin: 0;">
-    <div style="background: white; width: 100%; margin: 0; padding: 0;">
+<div ondragstart="return false;" ondrop="return false;" style="width: 100%; margin: 0;">
+    <div style="background: #eaeaea; width: 100%; margin: 0; padding: 0;">
         <div id="templates-header">
             Template:
             <select id="templates-select">
@@ -12,7 +12,8 @@
                 More Template or User Group Stuff
             </div>
         </div>
-        <div style="background: #EAEAEA; height: 2px; margin: 0;"></div>
+    </div>
+    <div style="background: white; width: 100%; margin: 0; padding: 0;">
         <div id="timecard-header">
             <div id="timecard-nav-prev">
                 <b>&#9668; Previous Week</b>
@@ -25,32 +26,38 @@
             </div>
         </div>
     </div>
-    <table class="timecard-table">
-        <hr style=" height: 5px; border: 0; box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5); margin: 0; margin-bottom: 5px;" />
-        <tr>
-            {{range $day := .Days}}
-            <td class="timecard-day">
-                <div style="background-color: white; padding: 5px;">
-                    <b>11/29/16</b>
-                    <br>
-                    <b>Tuesday</b>
-                    <br>
-                    Hours: 0
-                </div>
-                <div style="padding: 5px;">
-                    <table style="width: 100%; margin: 0;">
-                        {{range $day := $.Days}}
-                        <tr>
-                            <td class="timecard-cell">
-                                {{.}}:00pm
-                            </td>
-                        </tr>
-                        {{end}}
-                    </table>
-                </div>
-            </td>
-            {{end}}
-        </tr>
-    </table>
+    <hr style=" height: 5px; border: 0; box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5); margin: 0; margin-bottom: 5px;" />
+    <div style="width: 100%; margin: 0;
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer */
+                -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+                -webkit-user-select: none; /* Chrome, Safari, and Opera */
+                -webkit-touch-callout: none; /* Disable Android and iOS callouts*/">
+        <table class="timecard-day-table">
+            <tr>
+                {{range $day := .Days}}
+                <td class="timecard-day" onmouseup="down=false;" onmouseleave="down=false;">
+                    <div class="timecard-day-header">
+                        <div><b>11/29/16</b></div>
+                        <div><b>Tuesday</b></div>
+                        <div>Hours: 0</div>
+                    </div>
+                    <div style="background: #666; height: 1px;"></div>
+                    <div>
+                        <table class="timecard-hour-table">
+                            {{range $hour := $.Hours}}
+                            <tr>
+                                <td class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="down=false;" onmousedown="tdMouseDown(this);">
+                                    <span>{{.}}:00pm</span>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </table>
+                    </div>
+                </td>
+                {{end}}
+            </tr>
+        </table>
+    </div>
 </div>
 {{end}}
