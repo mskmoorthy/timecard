@@ -1,31 +1,5 @@
 {{define "content"}}
 <div ondragstart="return false;" ondrop="return false;" style="width: 100%; margin: 0;">
-    <div style="background: #eaeaea; width: 100%; margin: 0; padding: 0;">
-        <div id="templates-header">
-            Template:
-            <select id="templates-select">
-                <option selected> None </option>
-                <option>Template 1</option>
-                <option>Template 2</option>
-            </select>
-            <div style="margin-left: auto;">
-                More Template or User Group Stuff
-            </div>
-        </div>
-    </div>
-    <div style="background: white; width: 100%; margin: 0; padding: 0;">
-        <div id="timecard-header">
-            <div id="timecard-nav-prev">
-                <b>&#9668; Previous Week</b>
-            </div>
-            <div style="margin: 0 auto;">
-                <b>Total Hours: 0</b>
-            </div>
-            <div id="timecard-nav-next">
-                <b>Next Week &#9658;</b>
-            </div>
-        </div>
-    </div>
     <hr style=" height: 5px; border: 0; box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5); margin: 0; margin-bottom: 5px;" />
     <div style="width: 100%; margin: 0;
                 -moz-user-select: none; /* Firefox */
@@ -42,13 +16,13 @@
                         <div><b>Tuesday</b></div>
                         <div>Hours: 0</div>
                     </div>
-                    <div style="background: #666; height: 1px;"></div>
+                    <div style="background: #666; width: 100%; height: 1px;"></div>
                     <div>
                         <table class="timecard-hour-table">
                             {{range $hour := $.Hours}}
                             <tr>
                                 <td class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="down=false;" onmousedown="tdMouseDown(this);">
-                                    <span>{{.}}:00pm</span>
+                                    <div>{{.}}:00pm</div>
                                 </td>
                             </tr>
                             {{end}}

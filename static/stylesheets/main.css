@@ -81,11 +81,54 @@ body {
     padding: 5px 0;
 }
 
-#templates-select {
-    min-width: 140px;
+.templates-button {
+    background: white;
+    border: 1px solid #666;
+    min-width: 50px;
     height: 20px;
     margin: 0;
     margin-left: 10px;
+    cursor: pointer;
+}
+
+.templates-button:hover:enabled {
+    border: 1px solid black;
+}
+
+.templates-button:active:enabled {
+    background: #eaeaea;
+    border: 1px solid black;
+}
+
+.templates-button:disabled {
+    background: #eaeaea;
+    color: #666;
+    cursor: inherit;
+}
+
+#templates-select {
+    background: white;
+    border: 1px solid #666;
+    width: 140px;
+    height: 20px;
+    margin: 0;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#templates-select:hover {
+    border: 1px solid black;
+}
+
+#templates-textinput {
+    background: white;
+    border: 1px solid #666;
+    display: none;
+    width: 132px;
+    height: 20px;
+    margin: 0;
+    margin-left: 10px;
+    padding: 0 4px;
 }
 
 .timecard-day-table {
@@ -135,7 +178,7 @@ body {
 }
 
 .timecard-cell-selected {
-    background: #26d08e;
+    background: #1cd990;
     color: white;
     border-bottom: 1px solid #666;
     width: 100%;
@@ -146,5 +189,5 @@ body {
 }
 
 .timecard-cell-selected:hover {
-    background: #35e6a2;
+    background: #43efad;
 }

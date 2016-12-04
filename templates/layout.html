@@ -26,14 +26,41 @@
     <script src="../static/js/main.js"></script>
 </head>
 
-<body >
-    <header style="background: #1B5689; margin: 0;">
+<body>
+    <header style="background: #1b5689; margin: 0;">
         <div id="header">
             <img src="static/logo.svg" id="logo">
             <div id="login"><b>Logout Username</b></div>
         </div>
     </header>
-    
+    <div style="background: #eaeaea; border-bottom: #d1d1d1 solid 1px; width: 100%; margin: 0; padding: 0;">
+        <div id="templates-header">
+            <div>Template:</div>
+            <select id="templates-select" onchange="templateSelectChanged(this);">
+                <option value="" selected>None</option>
+            </select>
+            <button class="templates-button" id="templates-button" onclick="showEditTemplate();">New Template</button>
+            <input id="templates-textinput" style="display: none;" type="text" minlength="2" maxlength="18" oninput="templateNameInput(this);">
+            <button class="templates-button" id="templates-save-button" style="display: none;" onclick="saveNewTemplate();">Save</button>
+            <button class="templates-button" id="templates-delete-button" style="display: none;" onclick="hideEditTemplate();">Cancel</button>
+            <div style="margin-left: auto;">
+                More Template or User Group Stuff
+            </div>
+        </div>
+    </div>
+    <div style="background: white; width: 100%; margin: 0; padding: 0;">
+        <div id="timecard-header">
+            <div id="timecard-nav-prev">
+                <b>&#9668; Previous Week</b>
+            </div>
+            <div style="margin: 0 auto;">
+                <b>Total Hours: 0</b>
+            </div>
+            <div id="timecard-nav-next">
+                <b>Next Week &#9658;</b>
+            </div>
+        </div>
+    </div>
     {{template "content" .}}
 
     <div id="footer">
