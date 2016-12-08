@@ -1,30 +1,113 @@
+// TODO: cache frequently used elements up here, assigned in onLoad()
+// TODO: Break into multiple JS files?
+
+// database save button should be grayed out if no changes are made
+var databaseSaveButton;
+
+// Date we are focused on, starts are current date
+var currentDate = moment();
+
 var down = false;
-var toggleTo = true;
+var cellToggleTo = true;
+
+var cellMinutes = 60;
+var selectedCells = 0;
+// TOOD: Modify to use durations rather than start timestamps?
+var selectedTimestamps = [];
+
+function onLoad() {
+    databaseSaveButton = document.getElementById("database-save-button");
+
+    databaseSaveButton.disabled = true;
+
+    updateDates();
+    updateHours();
+    hideEditTemplate();
+}
+
+function updateDates() {
+    // iterate days and increment date
+    var dayDate = moment(currentDate);
+    dayDate.startOf("week");
+    for (var i = 1; i < 8; i++) {
+        var day = document.getElementById("timecard-day-" + (i));
+        var dayHeader = day.getElementsByClassName("timecard-day-header")[0];
+        var headerDate = dayHeader.getElementsByClassName("day-header-date")[0];
+        var headerWeekday = dayHeader.getElementsByClassName("day-header-weekday")[0];
+        headerDate.textContent = dayDate.format("MM[/]DD[/]YY")
+        headerWeekday.textContent = dayDate.format("dddd");
+        dayDate.add(1, 'd');
+    }
+}
+
+function prevWeek() {
+    // move focused date back one week
+    currentDate.subtract(1, "week");
+    updateDates();
+}
+
+function nextWeek() {
+    // move focused date forward one week
+    currentDate.add(1, "week");
+    updateDates();
+}
+
+function updateHours() {
+    var totalHours = document.getElementById("total-hours");
+    totalHours.textContent = "Total Hours: " + (selectedCells * cellMinutes / 60);
+}
+
+function updateDayHours(day) {
+    // Called on mouse up and leave in day. Modify to happen live in updateHours()
+    down = false;
+    updateHours();
+
+    var dayHours = 0;
+
+    // Get all selected cells, we can use length to find hours
+    var dayCells = day.getElementsByClassName("timecard-cell-selected");
+
+    // Get header hours field and fill it in
+    var dayHeader = day.getElementsByClassName("timecard-day-header")[0];
+    var headerHours = dayHeader.getElementsByClassName("day-header-hours")[0];
+    headerHours.textContent = "Hours: " + (dayCells.length * cellMinutes / 60);
+}
 
 function tdSelected(td) {
-    if (td.className == "timecard-cell-selected") {
-        return true;
-    } else {
-        return false;
-    }
+    return (td.className == "timecard-cell-selected");
 }
 
 function tdMouseOver(td) {
     if (!down) {
         return;
     }
-    if (toggleTo) {
-        td.className = "timecard-cell-selected";
+    if (cellToggleTo) {
+        // changing cells to selected
+        if (!tdSelected(td)) {
+            td.className = "timecard-cell-selected";
+            selectedCells += 1;
+            updateHours();
+        }
     } else {
-        td.className = "timecard-cell";
+        // changing cells to unselected
+        if (tdSelected(td)) {
+            td.className = "timecard-cell";
+            selectedCells -= 1;
+            updateHours();
+        }
     }
-    // Hours changed, no longer template
+    // Hours changed, no longer template-valid
 }
 
 function tdMouseDown(td) {
     down = true;
-    toggleTo = !tdSelected(td);
+    cellToggleTo = !tdSelected(td);
     tdMouseOver(td);
+}
+
+function tdMouseUp(td) {
+    down = false;
+    updateHours();
 }
 
 function showEditTemplate() {
@@ -50,8 +133,6 @@ function showEditTemplate() {
 
     templateNameInput(textInput);
     textInput.focus();
-
-    // Disable save button unless name is unique
 }
 
 function hideEditTemplate() {
@@ -81,6 +162,7 @@ function templateNameInput(e) {
     templatesSaveButton.disabled = false;
     for (var i = 0; i < select.length; i++) {
         if (e.value.trim() == select.options[i].text) {
+            // Save button disabled unless template (update) or name changed (new)
             templatesSaveButton.disabled = true;
             break;
         }
@@ -102,4 +184,5 @@ function templateSelectChanged(select) {
     }
 
     // Apply template to hours
+    // set all cells to unselected, select those in the template
 }

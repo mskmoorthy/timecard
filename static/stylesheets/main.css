@@ -25,6 +25,13 @@ body {
 }
 
 #login {
+    color: white;
+    font-size: 100%;
+    font-weight: bold;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     margin-left: auto;
     cursor: pointer;
 }
@@ -52,7 +59,13 @@ body {
 }
 
 #timecard-nav-prev {
+    font-size: 100%;
+    font-weight: bold;
     width: 140px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     text-align: left;
     cursor: pointer;
 }
@@ -62,7 +75,13 @@ body {
 }
 
 #timecard-nav-next {
+    font-size: 100%;
+    font-weight: bold;
     width: 140px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     text-align: right;
     cursor: pointer;
 }
@@ -84,7 +103,7 @@ body {
 .templates-button {
     background: white;
     border: 1px solid #666;
-    min-width: 50px;
+    min-width: 80px;
     height: 20px;
     margin: 0;
     margin-left: 10px;
@@ -178,7 +197,7 @@ body {
 }
 
 .timecard-cell-selected {
-    background: #1cd990;
+    background: #0cc980;
     color: white;
     border-bottom: 1px solid #666;
     width: 100%;

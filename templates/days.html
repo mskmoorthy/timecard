@@ -10,18 +10,20 @@
         <table class="timecard-day-table">
             <tr>
                 {{range $day := .Days}}
-                <td class="timecard-day" onmouseup="down=false;" onmouseleave="down=false;">
+                <!-- day ids are templated -->
+                <td id="timecard-day-{{.}}" class="timecard-day" onmouseup="updateDayHours(this);" onmouseleave="updateDayHours(this);">
                     <div class="timecard-day-header">
-                        <div><b>11/29/16</b></div>
-                        <div><b>Tuesday</b></div>
-                        <div>Hours: 0</div>
+                        <div class="day-header-date" style="font-weight: bold;">1/1/00</div>
+                        <div class="day-header-weekday" style="font-weight: bold;">Monday</div>
+                        <div class="day-header-hours" style="font-weight: bold;">Hours: 0</div>
                     </div>
                     <div style="background: #666; width: 100%; height: 1px;"></div>
                     <div>
                         <table class="timecard-hour-table">
                             {{range $hour := $.Hours}}
                             <tr>
-                                <td class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="down=false;" onmousedown="tdMouseDown(this);">
+                                <!-- TODO: figure out how to associate actual timestamp with cell -->
+                                <td class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="tdMouseUp(this);" onmousedown="tdMouseDown(this);">
                                     <div>{{.}}:00pm</div>
                                 </td>
                             </tr>
