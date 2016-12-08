@@ -6,7 +6,6 @@ import (
     "github.com/julienschmidt/httprouter"
 )
 
-
 type Page struct {
     Title string
     Days []int
