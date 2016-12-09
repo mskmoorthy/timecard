@@ -44,13 +44,13 @@
             <input id="templates-textinput" style="display: none;" type="text" minlength="2" maxlength="18" oninput="templateNameInput(this);">
             <button class="templates-button" id="templates-save-button" style="display: none;" onclick="saveNewTemplate();">Save</button>
             <button class="templates-button" id="templates-delete-button" style="display: none;" onclick="hideEditTemplate();">Cancel</button>
-            <button class="templates-button" id="database-save-button" style="margin-left: auto; " onclick="">Save</button>
+            <button class="templates-button" id="database-save-button" style="margin-left: auto; " onclick="saveDatabaseSelected();">Save</button>
         </div>
     </div>
     <div style="background: white; width: 100%; margin: 0; padding: 0;">
         <div id="timecard-header">
             <button id="timecard-nav-prev" onclick="prevWeek();">&#9668; Previous Week</button>
-            <div style="margin: 0 auto;">
+            <div style="width: 140px; margin: 0 auto;">
                 <div id="total-hours" style="font-weight: bold;">Total Hours: </div>
             </div>
             <button id="timecard-nav-next" onclick="nextWeek();">Next Week &#9658;</button>
