@@ -5,6 +5,7 @@
 var databaseSaveButton;
 
 // Date we are focused on, starts are current date
+//var initDate = moment();
 var currentDate = moment();
 
 var down = false;
@@ -39,35 +40,48 @@ function clearCells() {
         // elements are removed as their classes are changed, must iterate backwards
         for (var j = dayCells.length - 1; j >= 0; j--) {
             dayCells[j].className = "timecard-cell";
-            selectedCells = 0;
-            updateHours();
         }
     }
+
+    selectedCells = 0;
+    //updateHours();
 }
 
 function saveDatabaseSelected() {
     var selected = JSON.stringify(Array.from(selectedTimestamps));
-    console.log(selected);
+    selectedTimestamps.clear();
 }
 
 function getDatabaseSelected() {
     // select cells from database and those in the selected set
+    //console.log(selectedTimestamps);
+    for (var i = 1; i < 8; i++) {
+        day = document.getElementById("timecard-day-" + i);
+
+        var dayCells = day.getElementsByClassName("timecard-cell");
+        for (var j = dayCells.length - 1; j >= 0; j--) {
+            // reselect cells in the selected set
+            if (selectedTimestamps.has(dayCells[j].dataset.timestamp)) {
+                tdSelect(dayCells[j]);
+            }
+        }
+    }
 
 }
 
 // move focused date back one week
 function prevWeek() {
     currentDate.subtract(1, "week");
-    clearCells();
     updateDates();
+    clearCells();
     getDatabaseSelected();
 }
 
 // move focused date forward one week
 function nextWeek() {
     currentDate.add(1, "week");
-    clearCells();
     updateDates();
+    clearCells();
     getDatabaseSelected();
 }
 
@@ -111,20 +125,28 @@ function dayInitialize(weekday) {
     headerDate.textContent = dayDate.format("MM[/]DD[/]YY");
     headerWeekday.textContent = dayDate.format("dddd");
 
-    var dayCells = day.getElementsByClassName("timecard-cell-selected");
+    var dayCells = day.getElementsByClassName("timecard-cell");
     for (let c of dayCells) {
+        tdInitialize(c);
+    }
+
+    var dayCellsSelected = day.getElementsByClassName("timecard-cell-selected");
+    for (let c of dayCellsSelected) {
         tdInitialize(c);
     }
 }
 
 // initialize time cell and parse stamp
 function tdInitialize(td) {
+    //alert("init");
     // tdHourMin will be in 24-hour format 0830 to mean 8:30
     var tdHourMin = td.dataset.hourmin;
     var tdDay = td.closest(".timecard-day");
     var tdTime = moment.unix(tdDay.dataset.date);
     tdTime.set("hour", tdHourMin.substr(0, 2));
     tdTime.set("minute", tdHourMin.substr(2, 4));
+    tdTime.set("second", 0);
+    tdTime.set("millisecond", 0);
     td.dataset.timestamp = tdTime.unix();
     td.innerHTML = tdTime.format("h:mm a"); // + " - " + tdTime.add(30, "minute").format("h:mm a");
 }
