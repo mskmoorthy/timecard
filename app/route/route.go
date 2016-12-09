@@ -19,7 +19,10 @@ func Route() *httprouter.Router {
     r.GET("/static/*filepath", controller.Static)
 
     // Index
-    r.GET("/", controller.Index)
+    r.GET("/", controller.IndexGET)
+
+    r.GET("/update", controller.IndexUpdateGET)
+    r.POST("/update", controller.IndexUpdatePOST)
 
     return r
 }
