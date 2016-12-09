@@ -23,8 +23,10 @@
                             {{range $hour := $.Hours}}
                             <tr>
                                 <!-- TODO: figure out how to associate actual timestamp with cell -->
-                                <td class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="tdMouseUp(this);" onmousedown="tdMouseDown(this);">
-                                    <div>{{.}}:00pm</div>
+                                <td data-stamp="{{.}}" class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="tdMouseUp(this);" onmousedown="tdMouseDown(this);">
+                                    <script type="text/javascript">
+                                        tdInitialized(document.currentScript.parentElement);
+                                    </script>
                                 </td>
                             </tr>
                             {{end}}
