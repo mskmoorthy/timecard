@@ -12,6 +12,7 @@ var cellToggleTo = true;
 
 var cellMinutes = 60;
 var selectedCells = 0;
+
 // TOOD: Modify to use durations rather than start timestamps?
 var selectedTimestamps = [];
 
@@ -19,6 +20,7 @@ function onLoad() {
     databaseSaveButton = document.getElementById("database-save-button");
 
     databaseSaveButton.disabled = true;
+    databaseSaveButton.textContent = "Saved"; // Should be "save" when enabled
 
     updateDates();
     updateHours();
@@ -71,6 +73,15 @@ function updateDayHours(day) {
     var dayHeader = day.getElementsByClassName("timecard-day-header")[0];
     var headerHours = dayHeader.getElementsByClassName("day-header-hours")[0];
     headerHours.textContent = "Hours: " + (dayCells.length * cellMinutes / 60);
+}
+
+function tdInitialized(td) {
+    // td id will be in 24-hour format 0830 to mean 8:30
+    var tdStamp = td.dataset.stamp;
+    var tdTime = moment();
+    tdTime.set("hour", tdStamp.substr(0, 2));
+    tdTime.set("minute", tdStamp.substr(2, 4));
+    td.innerHTML = tdTime.format("h:mm a");
 }
 
 function tdSelected(td) {
