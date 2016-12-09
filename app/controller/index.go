@@ -63,4 +63,6 @@ func IndexUpdatePOST(w http.ResponseWriter, r *http.Request, _ httprouter.Params
     if err != nil {
         panic(err)
     }
+
+    log.Println(d.Dates)
 }

@@ -54,7 +54,7 @@ function saveDatabaseSelected() {
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
     xhr.send(selected);
     console.log(selected);
-    selectedTimestamps.clear();
+    //selectedTimestamps.clear();
 }
 
 function getDatabaseSelected() {
