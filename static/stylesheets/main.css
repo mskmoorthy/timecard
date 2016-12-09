@@ -3,6 +3,7 @@ body {
     color: black;
     font-family: 'Open Sans', sans-serif;
     vertical-align: baseline;
+    min-width: 480px;
     margin: 0;
     padding: 0;
     border: 0;
@@ -24,6 +25,13 @@ body {
 }
 
 #login {
+    color: white;
+    font-size: 100%;
+    font-weight: bold;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
     margin-left: auto;
     cursor: pointer;
 }
@@ -33,7 +41,7 @@ body {
 }
 
 #footer {
-    background-color: #EAEAEA;
+    background-color: #eaeaea;
     text-align: center;
     position: relative;
     margin: 10px 0 0 0;
@@ -51,6 +59,14 @@ body {
 }
 
 #timecard-nav-prev {
+    font-size: 100%;
+    font-weight: bold;
+    width: 140px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
     cursor: pointer;
 }
 
@@ -59,6 +75,14 @@ body {
 }
 
 #timecard-nav-next {
+    font-size: 100%;
+    font-weight: bold;
+    width: 140px;
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    text-align: right;
     cursor: pointer;
 }
 
@@ -76,53 +100,113 @@ body {
     padding: 5px 0;
 }
 
-#templates-select {
-    min-width: 140px;
+.templates-button {
+    background: white;
+    border: 1px solid #666;
+    min-width: 80px;
     height: 20px;
     margin: 0;
     margin-left: 10px;
+    cursor: pointer;
 }
 
-.timecard-table {
+.templates-button:hover:enabled {
+    border: 1px solid black;
+}
+
+.templates-button:active:enabled {
+    background: #eaeaea;
+    border: 1px solid black;
+}
+
+.templates-button:disabled {
+    background: #eaeaea;
+    color: #666;
+    cursor: inherit;
+}
+
+#templates-select {
+    background: white;
+    border: 1px solid #666;
+    width: 140px;
+    height: 20px;
+    margin: 0;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#templates-select:hover {
+    border: 1px solid black;
+}
+
+#templates-textinput {
+    background: white;
+    border: 1px solid #666;
+    display: none;
+    width: 132px;
+    height: 20px;
+    margin: 0;
+    margin-left: 10px;
+    padding: 0 4px;
+}
+
+.timecard-day-table {
     width: 90%;
     max-width: 1200px;
     text-align: center;
     margin: 0 auto;
     padding: 0;
+    border-spacing: 0;
 }
 
 .timecard-day {
-    background: #EAEAEA;
+    background: white;
     display: inline-block;
     width: 20%;
     min-width: 90px;
     max-width: 140px;
-    outline: black solid 2px;
+    border: 1px solid #666;
     text-align: center;
-    margin: 5px 10px;
+    margin: 10px;
     padding: 0;
+    /* box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.5); */
+}
+
+.timecard-day-header {
+    background: white;
+    padding: 5px;
+}
+
+.timecard-hour-table {
+    width: 100%;
+    margin: 0;
+    border-spacing: 0px;
 }
 
 .timecard-cell {
-    background: #EAEAEA;
-    outline: black solid 2px;
+    background: #eaeaea;
+    border-bottom: 1px solid #666;
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    cursor: cell;
+}
+
+.timecard-cell:hover {
+    background: white;
+}
+
+.timecard-cell-selected {
+    background: #0cc980;
+    color: white;
+    border-bottom: 1px solid #666;
     width: 100%;
     height: 30px;
     margin: 0;
     padding: 0;
     cursor: cell;
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer */
-    -khtml-user-select: none;
-    /* KHTML browsers (e.g. Konqueror) */
-    -webkit-user-select: none;
-    /* Chrome, Safari, and Opera */
-    -webkit-touch-callout: none;
-    /* Disable Android and iOS callouts*/
 }
 
-.timecard-cell:hover {
-    background: white;
+.timecard-cell-selected:hover {
+    background: #43efad;
 }

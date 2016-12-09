@@ -23,16 +23,39 @@
         </ul>
     </nav>
     <!-- End Leet navbar -->
+    <script src="../static/js/moment.js"></script>
+    <script src="../static/js/main.js"></script>
 </head>
 
-<body>
-    <header style="background: #1B5689; margin: 0;">
+<body onload="onLoad();">
+    <header style="background: #1b5689; margin: 0;">
         <div id="header">
             <img src="static/logo.svg" id="logo">
-            <div id="login"><b>Logout Username</b></div>
+            <button id="login">Logout Username</button>
         </div>
     </header>
-    
+    <div style="background: #eaeaea; border-bottom: #d1d1d1 solid 1px; width: 100%; margin: 0; padding: 0;">
+        <div id="templates-header">
+            <div>Template:</div>
+            <select id="templates-select" onchange="templateSelectChanged(this);">
+                <option value="" selected>None</option>
+            </select>
+            <button class="templates-button" id="templates-button" onclick="showEditTemplate();">New Template</button>
+            <input id="templates-textinput" style="display: none;" type="text" minlength="2" maxlength="18" oninput="templateNameInput(this);">
+            <button class="templates-button" id="templates-save-button" style="display: none;" onclick="saveNewTemplate();">Save</button>
+            <button class="templates-button" id="templates-delete-button" style="display: none;" onclick="hideEditTemplate();">Cancel</button>
+            <button class="templates-button" id="database-save-button" style="margin-left: auto; " onclick="">Save</button>
+        </div>
+    </div>
+    <div style="background: white; width: 100%; margin: 0; padding: 0;">
+        <div id="timecard-header">
+            <button id="timecard-nav-prev" onclick="prevWeek();">&#9668; Previous Week</button>
+            <div style="margin: 0 auto;">
+                <div id="total-hours" style="font-weight: bold;">Total Hours: </div>
+            </div>
+            <button id="timecard-nav-next" onclick="nextWeek();">Next Week &#9658;</button>
+        </div>
+    </div>
     {{template "content" .}}
 
     <div id="footer">

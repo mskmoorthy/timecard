@@ -1,56 +1,41 @@
 {{define "content"}}
-<div style="width: 100%; margin: 0;">
-    <div style="background: white; width: 100%; margin: 0; padding: 0;">
-        <div id="templates-header">
-            Template:
-            <select id="templates-select">
-                <option selected> None </option>
-                <option>Template 1</option>
-                <option>Template 2</option>
-            </select>
-            <div style="margin-left: auto;">
-                More Template or User Group Stuff
-            </div>
-        </div>
-        <div style="background: #EAEAEA; height: 2px; margin: 0;"></div>
-        <div id="timecard-header">
-            <div id="timecard-nav-prev">
-                <b>&#9668; Previous Week</b>
-            </div>
-            <div style="margin: 0 auto;">
-                <b>Total Hours: 0</b>
-            </div>
-            <div id="timecard-nav-next">
-                <b>Next Week &#9658;</b>
-            </div>
-        </div>
+<div ondragstart="return false;" ondrop="return false;" style="width: 100%; margin: 0;">
+    <hr style=" height: 5px; border: 0; box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5); margin: 0; margin-bottom: 5px;" />
+    <div style="width: 100%; margin: 0;
+                -moz-user-select: none; /* Firefox */
+                -ms-user-select: none; /* Internet Explorer */
+                -khtml-user-select: none; /* KHTML browsers (e.g. Konqueror) */
+                -webkit-user-select: none; /* Chrome, Safari, and Opera */
+                -webkit-touch-callout: none; /* Disable Android and iOS callouts*/">
+        <table class="timecard-day-table">
+            <tr>
+                {{range $day := .Days}}
+                <!-- day ids are templated -->
+                <td id="timecard-day-{{.}}" class="timecard-day" onmouseup="updateDayHours(this);" onmouseleave="updateDayHours(this);">
+                    <div class="timecard-day-header">
+                        <div class="day-header-date" style="font-weight: bold;">1/1/00</div>
+                        <div class="day-header-weekday" style="font-weight: bold;">Monday</div>
+                        <div class="day-header-hours" style="font-weight: bold;">Hours: 0</div>
+                    </div>
+                    <div style="background: #666; width: 100%; height: 1px;"></div>
+                    <div>
+                        <table class="timecard-hour-table">
+                            {{range $hour := $.Hours}}
+                            <tr>
+                                <!-- TODO: figure out how to associate actual timestamp with cell -->
+                                <td data-stamp="{{.}}" class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="tdMouseUp(this);" onmousedown="tdMouseDown(this);">
+                                    <script type="text/javascript">
+                                        tdInitialized(document.currentScript.parentElement);
+                                    </script>
+                                </td>
+                            </tr>
+                            {{end}}
+                        </table>
+                    </div>
+                </td>
+                {{end}}
+            </tr>
+        </table>
     </div>
-    <table class="timecard-table">
-        <hr style=" height: 5px; border: 0; box-shadow: inset 0 5px 5px -5px rgba(0, 0, 0, 0.5); margin: 0; margin-bottom: 5px;" />
-        <tr>
-            {{range $day := .Days}}
-            <td class="timecard-day">
-                <div style="background-color: white; padding: 5px;">
-                    <b>11/29/16</b>
-                    <br>
-                    <b>Tuesday</b>
-                    <br>
-                    Hours: 0
-                </div>
-                <div style="padding: 5px;">
-                    <table style="width: 100%; margin: 0;">
-                        {{range $day := $.Days}}
-                        <tr>
-                            <td class="timecard-cell">
-                                {{.}}:00pm
-                            </td>
-                        </tr>
-                        {{end}}
-                    </table>
-                </div>
-            </td>
-            {{end}}
-        </tr>
-    </table>
 </div>
 {{end}}
