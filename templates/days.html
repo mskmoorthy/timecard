@@ -11,21 +11,21 @@
             <tr>
                 {{range $day := .Days}}
                 <!-- day ids are templated -->
-                <td id="timecard-day-{{.}}" class="timecard-day" onmouseup="updateDayHours(this);" onmouseleave="updateDayHours(this);">
-                    <div class="timecard-day-header">
-                        <div class="day-header-date" style="font-weight: bold;">1/1/00</div>
-                        <div class="day-header-weekday" style="font-weight: bold;">Monday</div>
-                        <div class="day-header-hours" style="font-weight: bold;">Hours: 0</div>
-                    </div>
+                <td id="timecard-day-{{.}}" data-date="" class="timecard-day" onmouseup="dayUpdateHours(this);" onmouseleave="dayUpdateHours(this);">
+                    <div class="day-header-date" style="font-weight: bold;">1/1/00</div>
+                    <div class="day-header-weekday" style="font-weight: bold;">Monday</div>
+                    <div class="day-header-hours" style="font-weight: bold;">Hours: 0</div>
+                    <script type="text/javascript">
+                        dayInitialize({{.}});
+                    </script>
                     <div style="background: #666; width: 100%; height: 1px;"></div>
                     <div>
                         <table class="timecard-hour-table">
-                            {{range $hour := $.Hours}}
+                            {{range $stamp := $.Timestamps}}
                             <tr>
-                                <!-- TODO: figure out how to associate actual timestamp with cell -->
-                                <td data-stamp="{{.}}" class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="tdMouseUp(this);" onmousedown="tdMouseDown(this);">
+                                <td data-hourmin="{{.}}" data-timestamp="" class="timecard-cell" onmouseover="tdMouseOver(this);" onmouseup="tdMouseUp(this);" onmousedown="tdMouseDown(this);">
                                     <script type="text/javascript">
-                                        tdInitialized(document.currentScript.parentElement);
+                                        tdInitialize(document.currentScript.parentElement);
                                     </script>
                                 </td>
                             </tr>
