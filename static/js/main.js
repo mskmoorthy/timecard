@@ -46,7 +46,11 @@ function clearCells() {
 }
 
 function saveDatabaseSelected() {
-    var selected = JSON.stringify(Array.from(selectedTimestamps));
+    var selected = JSON.stringify({Dates: Array.from(selectedTimestamps)});
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "/update", true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    xhr.send(selected);
     console.log(selected);
 }
 
