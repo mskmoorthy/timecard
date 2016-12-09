@@ -41,3 +41,4 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
         http.Error(w, err.Error(), http.StatusInternalServerError)
     }
 }
+
