@@ -10,56 +10,84 @@ var currentDate = moment();
 var down = false;
 var cellToggleTo = true;
 
-var cellMinutes = 60;
-var selectedCells = 0;
+var cellMinutes = 30;
+var selectedCells = 0; // total selected cells in current view
 
 // TOOD: Modify to use durations rather than start timestamps?
-var selectedTimestamps = [];
+var selectedTimestamps = new Set();
 
 function onLoad() {
     databaseSaveButton = document.getElementById("database-save-button");
 
-    databaseSaveButton.disabled = true;
-    databaseSaveButton.textContent = "Saved"; // Should be "save" when enabled
+    databaseSaveButton.disabled = false; //true;
+    //databaseSaveButton.textContent = "Saved"; // Should be "save" when enabled
 
-    updateDates();
+    // Send get request for start and end times of filled durations, with days that information is needed for
+    // Will get back filled cells in epoch
+
+    getDatabaseSelected();
     updateHours();
     hideEditTemplate();
 }
 
-function updateDates() {
-    // iterate days and increment date
-    var dayDate = moment(currentDate);
-    dayDate.startOf("week");
+function clearCells() {
+    var day;
     for (var i = 1; i < 8; i++) {
-        var day = document.getElementById("timecard-day-" + (i));
-        var dayHeader = day.getElementsByClassName("timecard-day-header")[0];
-        var headerDate = dayHeader.getElementsByClassName("day-header-date")[0];
-        var headerWeekday = dayHeader.getElementsByClassName("day-header-weekday")[0];
-        headerDate.textContent = dayDate.format("MM[/]DD[/]YY")
-        headerWeekday.textContent = dayDate.format("dddd");
-        dayDate.add(1, 'd');
+        day = document.getElementById("timecard-day-" + i);
+
+        var dayCells = day.getElementsByClassName("timecard-cell-selected");
+        // elements are removed as their classes are changed, must iterate backwards
+        for (var j = dayCells.length - 1; j >= 0; j--) {
+            dayCells[j].className = "timecard-cell";
+            selectedCells = 0;
+            updateHours();
+        }
     }
 }
 
+function saveDatabaseSelected() {
+    var selected = JSON.stringify({Dates: Array.from(selectedTimestamps)});
+    xhr = new XMLHttpRequest();
+    xhr.open("POST", "/update", true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    xhr.send(selected);
+    console.log(selected);
+}
+
+function getDatabaseSelected() {
+    // select cells from database and those in the selected set
+
+}
+
+// move focused date back one week
 function prevWeek() {
-    // move focused date back one week
     currentDate.subtract(1, "week");
+    clearCells();
     updateDates();
+    getDatabaseSelected();
 }
 
+// move focused date forward one week
 function nextWeek() {
-    // move focused date forward one week
     currentDate.add(1, "week");
+    clearCells();
     updateDates();
+    getDatabaseSelected();
 }
 
+// update total hours displayed at top
 function updateHours() {
     var totalHours = document.getElementById("total-hours");
     totalHours.textContent = "Total Hours: " + (selectedCells * cellMinutes / 60);
 }
 
-function updateDayHours(day) {
+function updateDates() {
+    for (var i = 1; i < 8; i++) {
+        dayInitialize(i);
+    }
+}
+
+function dayUpdateHours(day) {
     // Called on mouse up and leave in day. Modify to happen live in updateHours()
     down = false;
     updateHours();
@@ -69,23 +97,67 @@ function updateDayHours(day) {
     // Get all selected cells, we can use length to find hours
     var dayCells = day.getElementsByClassName("timecard-cell-selected");
 
-    // Get header hours field and fill it in
-    var dayHeader = day.getElementsByClassName("timecard-day-header")[0];
-    var headerHours = dayHeader.getElementsByClassName("day-header-hours")[0];
+    var headerHours = day.children[2];
     headerHours.textContent = "Hours: " + (dayCells.length * cellMinutes / 60);
 }
 
-function tdInitialized(td) {
-    // td id will be in 24-hour format 0830 to mean 8:30
-    var tdStamp = td.dataset.stamp;
-    var tdTime = moment();
-    tdTime.set("hour", tdStamp.substr(0, 2));
-    tdTime.set("minute", tdStamp.substr(2, 4));
-    td.innerHTML = tdTime.format("h:mm a");
+// initialize day and all its cells
+function dayInitialize(weekday) {
+    day = document.getElementById("timecard-day-" + weekday);
+
+    // increment to proper day of week
+    var dayDate = moment(currentDate).startOf("week").add(weekday - 1, "day");
+    day.dataset.date = dayDate.unix();
+
+    var headerDate = day.children[0];
+    var headerWeekday = day.children[1];
+
+    headerDate.textContent = dayDate.format("MM[/]DD[/]YY");
+    headerWeekday.textContent = dayDate.format("dddd");
+
+    var dayCells = day.getElementsByClassName("timecard-cell-selected");
+    for (let c of dayCells) {
+        tdInitialize(c);
+    }
 }
 
+// initialize time cell and parse stamp
+function tdInitialize(td) {
+    // tdHourMin will be in 24-hour format 0830 to mean 8:30
+    var tdHourMin = td.dataset.hourmin;
+    var tdDay = td.closest(".timecard-day");
+    var tdTime = moment.unix(tdDay.dataset.date);
+    tdTime.set("hour", tdHourMin.substr(0, 2));
+    tdTime.set("minute", tdHourMin.substr(2, 4));
+    td.dataset.timestamp = tdTime.unix();
+    td.innerHTML = tdTime.format("h:mm a"); // + " - " + tdTime.add(30, "minute").format("h:mm a");
+}
+
+// returns true if td is selected, else false
 function tdSelected(td) {
     return (td.className == "timecard-cell-selected");
+}
+
+function tdSelect(td) {
+    if (!tdSelected(td)) {
+        td.className = "timecard-cell-selected";
+        selectedCells += 1;
+
+        selectedTimestamps.add(td.dataset.timestamp);
+
+        updateHours();
+    }
+}
+
+function tdUnselect(td) {
+    if (tdSelected(td)) {
+        td.className = "timecard-cell";
+        selectedCells -= 1;
+
+        selectedTimestamps.delete(td.dataset.timestamp);
+
+        updateHours();
+    }
 }
 
 function tdMouseOver(td) {
@@ -94,18 +166,10 @@ function tdMouseOver(td) {
     }
     if (cellToggleTo) {
         // changing cells to selected
-        if (!tdSelected(td)) {
-            td.className = "timecard-cell-selected";
-            selectedCells += 1;
-            updateHours();
-        }
+        tdSelect(td);
     } else {
         // changing cells to unselected
-        if (tdSelected(td)) {
-            td.className = "timecard-cell";
-            selectedCells -= 1;
-            updateHours();
-        }
+        tdUnselect(td);
     }
     // Hours changed, no longer template-valid
 }

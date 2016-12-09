@@ -4,6 +4,10 @@ import (
     "net/http"
     "html/template"
     "time"
+    "encoding/json"
+    "log"
+
+//    "github.com/VCC-Helpdesk/timecard/app/model"
 
     "github.com/julienschmidt/httprouter"
 )
@@ -14,7 +18,7 @@ type Page struct {
     Timestamps []string
 }
 
-func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func IndexGET(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
     starthour := 8
     endhour := 23
     //intervals := 30
@@ -42,3 +46,21 @@ func Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
     }
 }
 
+func IndexUpdateGET(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+    // 
+}
+
+type DateJSON struct {
+    Dates []string
+}
+
+func IndexUpdatePOST(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+    decoder := json.NewDecoder(r.Body)
+
+    var d DateJSON
+    err := decoder.Decode(&d)
+
+    if err != nil {
+        panic(err)
+    }
+}
