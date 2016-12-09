@@ -11,7 +11,7 @@
             <tr>
                 {{range $day := .Days}}
                 <!-- day ids are templated -->
-                <td id="timecard-day-{{.}}" data-date="" class="timecard-day" onmouseup="dayUpdateHours(this);" onmouseleave="dayUpdateHours(this);">
+                <td id="timecard-day-{{.}}" data-date="" class="timecard-day" onmouseup="dayUpdateHours({{.}});" onmouseleave="dayUpdateHours({{.}});">
                     <div class="day-header-date" style="font-weight: bold;">1/1/00</div>
                     <div class="day-header-weekday" style="font-weight: bold;">Monday</div>
                     <div class="day-header-hours" style="font-weight: bold;">Hours: 0</div>

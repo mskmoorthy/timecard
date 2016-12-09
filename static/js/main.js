@@ -44,11 +44,13 @@ function clearCells() {
     }
 
     selectedCells = 0;
-    //updateHours();
+    updateHours();
 }
 
 function saveDatabaseSelected() {
-    var selected = JSON.stringify({Dates: Array.from(selectedTimestamps)});
+    var selected = JSON.stringify({
+        Dates: Array.from(selectedTimestamps)
+    });
     xhr = new XMLHttpRequest();
     xhr.open("POST", "/update", true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
@@ -80,6 +82,9 @@ function prevWeek() {
     updateDates();
     clearCells();
     getDatabaseSelected();
+    for (var i = 1; i < 8; i++) {
+        dayUpdateHours(i);
+    }
 }
 
 // move focused date forward one week
@@ -88,6 +93,9 @@ function nextWeek() {
     updateDates();
     clearCells();
     getDatabaseSelected();
+    for (var i = 1; i < 8; i++) {
+        dayUpdateHours(i);
+    }
 }
 
 // update total hours displayed at top
@@ -102,8 +110,11 @@ function updateDates() {
     }
 }
 
-function dayUpdateHours(day) {
+function dayUpdateHours(weekday) {
     // Called on mouse up and leave in day. Modify to happen live in updateHours()
+
+    var day = document.getElementById("timecard-day-" + weekday);
+
     down = false;
     updateHours();
 
@@ -118,7 +129,7 @@ function dayUpdateHours(day) {
 
 // initialize day and all its cells
 function dayInitialize(weekday) {
-    day = document.getElementById("timecard-day-" + weekday);
+    var day = document.getElementById("timecard-day-" + weekday);
 
     // increment to proper day of week
     var dayDate = moment(currentDate).startOf("week").add(weekday - 1, "day");
